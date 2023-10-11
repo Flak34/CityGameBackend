@@ -38,4 +38,5 @@ public class Game {
         else
             idOfMovingPlayer = firstPlayerId;
     }
+
 }

@@ -28,6 +28,5 @@ public class CucumberCitiesServicesTest {
     @Тогда("возвращается true")
     public void возвращается_true() {
         assertTrue(citiesService.isCityPairValid(w1, w2));
-
     }
 }
