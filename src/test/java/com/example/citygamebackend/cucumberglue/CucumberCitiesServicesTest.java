@@ -9,8 +9,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-@CucumberContextConfiguration
-@SpringBootTest
 public class CucumberCitiesServicesTest {
     private CitiesService citiesService;
     private String w1, w2;
