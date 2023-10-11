@@ -42,6 +42,7 @@ public class CitiesService {
     }
 
     public boolean isCityExist(String city){
-        return false;
+        city = city.toLowerCase();
+        return cities.contains(city);
     }
 }
