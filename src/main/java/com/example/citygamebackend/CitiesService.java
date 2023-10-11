@@ -15,9 +15,7 @@ public class CitiesService {
     private final HashSet<String> cities = new HashSet<>();
 
     public CitiesService(@Value("${cities.file-name}") String citiesFileName){
-        System.out.println("inside method");
         try(FileInputStream file = new FileInputStream(System.getProperty("user.dir") + "/" + citiesFileName)){
-            System.out.println("inside try");
             String[] readCities = new String(file.readAllBytes(), StandardCharsets.UTF_8).split("\n");
 
             for(String city: readCities){
