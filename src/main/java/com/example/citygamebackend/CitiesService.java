@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.util.*;
 
 @Service
@@ -14,9 +15,8 @@ public class CitiesService {
     private final HashSet<String> cities = new HashSet<>();
 
     public CitiesService(@Value("${cities.file-name}") String citiesFileName){
-        log.info(System.getProperty("user.dir") + "/" + citiesFileName);
         try(FileInputStream file = new FileInputStream(System.getProperty("user.dir") + "/" + citiesFileName)){
-            String[] readCities = new String(file.readAllBytes()).split("\n");
+            String[] readCities = new String(file.readAllBytes(), StandardCharsets.UTF_8).split("\n");
             for(String city: readCities){
                 cities.add(city.substring(1, city.length() - 2).toLowerCase().trim());
             }
