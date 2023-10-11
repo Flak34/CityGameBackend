@@ -22,10 +22,11 @@ public class CitiesService {
         try(FileInputStream file = new FileInputStream(System.getProperty("user.dir") + "/" + citiesFileName)){
             String[] readCities = new String(file.readAllBytes(), StandardCharsets.UTF_8).split("\n");
 
-            for(String city: readCities){
+            for(String city: readCities) {
                 cities.add(city.substring(1, city.length() - 2).toLowerCase().trim());
             }
-        }catch(IOException e){
+        }
+        catch(IOException e) {
             log.info(e.getMessage());
         }
     }
