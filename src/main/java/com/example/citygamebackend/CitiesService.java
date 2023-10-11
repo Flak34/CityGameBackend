@@ -26,11 +26,19 @@ public class CitiesService {
     }
 
     private static boolean isLettersEqualRU(char l1, char l2){
-        return false;
+        return l1 == l2 || (l1 == 'и' || l1 == 'й') && (l2 == 'и' || l2 == 'й') ||
+                (l1 == 'е' || l1 == 'ё') && (l2 == 'е' || l2 == 'ё');
     }
 
     public boolean isCityPairValid(String c1, String c2){
-        return false;
+        c1 = c1.toLowerCase();
+        c2 = c2.toLowerCase();
+        log.info(c1 + " " + c2);
+        char c2Last = c2.charAt(c2.length() - 1), c1First = c1.charAt(0);
+        log.info("c2Last " + c2Last + " c1First " + c1First);
+        if((c2Last == 'ъ' || c2Last == 'ь') && c2.length() > 1)
+            c2Last = c2.charAt(c2.length() - 2);
+        return isLettersEqualRU(c1First, c2Last);
     }
 
     public boolean isCityExist(String city){
