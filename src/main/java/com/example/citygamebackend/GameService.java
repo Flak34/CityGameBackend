@@ -33,7 +33,28 @@ public class GameService {
     }
 
     public ResponseMessage createNewGame(int playerId) {
-        return new ResponseMessage();
+        ResponseMessage responseMessage;
+        if(playersInGame.containsKey(playerId)) {
+            responseMessage = new ResponseMessage(playersInGame.get(playerId), playerId, "", "");
+            responseMessage.setLastWord(activeGames.get(playersInGame.get(playerId)).getLastWord());
+            responseMessage.setMovingPlayerId(activeGames.get(playersInGame.get(playerId)).getIdOfMovingPlayer());
+        }
+        else if(freePlayerId == -1 || freePlayerId == playerId) {
+            responseMessage = new ResponseMessage("-", playerId, "", "");
+            freePlayerId = playerId;
+        }
+        else {
+            Game newGame = new Game(freePlayerId, playerId);
+            activeGames.put(newGame.getGameId(), newGame);
+
+            playersInGame.put(freePlayerId, newGame.getGameId());
+            playersInGame.put(playerId, newGame.getGameId());
+
+            freePlayerId = -1;
+            responseMessage = new ResponseMessage(newGame.getGameId(),
+                    newGame.getIdOfMovingPlayer(), "", "");
+        }
+        return responseMessage;
     }
 
 }
