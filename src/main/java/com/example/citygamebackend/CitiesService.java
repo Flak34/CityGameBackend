@@ -14,6 +14,10 @@ import java.util.*;
 public class CitiesService {
     private final HashSet<String> cities = new HashSet<>();
 
+    public HashSet<String> getCities() {
+        return cities;
+    }
+
     public CitiesService(@Value("${cities.file-name}") String citiesFileName){
         try(FileInputStream file = new FileInputStream(System.getProperty("user.dir") + "/" + citiesFileName)){
             String[] readCities = new String(file.readAllBytes(), StandardCharsets.UTF_8).split("\n");
