@@ -39,7 +39,7 @@ public class GameService {
             responseMessage.setInfo("Данный город уже использовался!");
         }
         //проверка на существование города
-        else if(citiesService.isCityExist(nextWord)){
+        else if(citiesService.isCityExist(nextWord)) {
             responseMessage.setInfo("Кажется, город с таким названием не существует.");
         }
         else if(game.getUsedWords().size() != 0 &&
