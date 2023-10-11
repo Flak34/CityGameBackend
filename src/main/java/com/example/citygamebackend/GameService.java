@@ -13,9 +13,11 @@ public class GameService {
     private final HashMap<String, Game> activeGames = new HashMap<>();
     private final HashMap<Integer, String> playersInGame = new HashMap<>();
     private int freePlayerId = -1;
-
-    @Autowired
     private CitiesService citiesService;
+
+    public GameService(CitiesService citiesService) {
+        this.citiesService = citiesService;
+    }
 
     public int getNewId() {
         count++;
@@ -33,4 +35,5 @@ public class GameService {
     public ResponseMessage createNewGame(int playerId) {
         return new ResponseMessage();
     }
+
 }
