@@ -29,7 +29,34 @@ public class GameService {
     }
 
     public ResponseMessage processMove(String gameId, String nextWord) {
-        return new ResponseMessage();
+        Game game = activeGames.get(gameId);
+
+        ResponseMessage responseMessage = new ResponseMessage();
+        responseMessage.setGameId(gameId);
+        responseMessage.setInfo("");
+
+        if(game.isWordUsed(nextWord)) {
+            responseMessage.setInfo("Данный город уже использовался!");
+        }
+        //проверка на существование города
+        else if(citiesService.isCityExist(nextWord)){
+            responseMessage.setInfo("Кажется, город с таким названием не существует.");
+        }
+        else if(game.getUsedWords().size() != 0 &&
+                !citiesService.isCityPairValid(nextWord, game.getLastWord())) {
+            char lastLetter = game.getLastWord().charAt(game.getLastWord().length() - 1);
+            if((lastLetter == 'ъ' || lastLetter == 'ь') && game.getLastWord().length() > 1)
+                lastLetter = game.getLastWord().charAt(game.getLastWord().length() - 2);
+            responseMessage.setInfo("Город должен начинаться на букву " + lastLetter + "!");
+        }
+        else {
+            game.addWord(nextWord);
+            game.changeMovingPlayer();
+        }
+
+        responseMessage.setLastWord(game.getLastWord());
+        responseMessage.setMovingPlayerId(game.getIdOfMovingPlayer());
+        return responseMessage;
     }
 
     public ResponseMessage createNewGame(int playerId) {
